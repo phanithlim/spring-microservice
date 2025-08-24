@@ -52,4 +52,4 @@ docker-compose up
 ## Tutorial
 
 A step-by-step tutorial for this project is available on YouTube:
-[Spring Microservices Java Spring Tutorial by Phanith Lim](https://www.youtube.com/watch?v=jdeSV0GRvwI&t=19605s)
+[Mastering Microservices: Spring boot, Spring Cloud and Keycloak In 7 Hours by Ali Bouali](https://www.youtube.com/watch?v=jdeSV0GRvwI&t=19605s)
