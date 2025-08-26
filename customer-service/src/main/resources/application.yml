@@ -3,3 +3,8 @@ spring:
     import: optional:configserver:http://localhost:8888
   application:
     name: customer-service
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+    groups-order: desc

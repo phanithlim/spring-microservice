@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public record CustomerResponseDto (
-        String id,
-        String firstName,
-        String lastName,
-        String email,
-        AddressDto address
+public record AddressDto(
+        String street,
+        String city,
+        String state,
+        String zipCode,
+        String country
 ) {
 }

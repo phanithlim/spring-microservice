@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 public record CustomerDto(
         String firstName,
         String lastName,
-        String email
+        String email,
+        AddressDto address
 ) {
 }
