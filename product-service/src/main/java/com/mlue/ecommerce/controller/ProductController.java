@@ -20,12 +20,12 @@ public class ProductController extends BaseController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<ProductResponseDto>> createProduct(@RequestBody  ProductDto productDto) {
+    public ResponseEntity<ApiResponse<ProductResponseDto>> createProduct(@RequestBody ProductDto productDto) {
         return getOkResponse(productService.createProduct(productDto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<ProductResponseDto>> readProduct(@RequestParam Long id) {
+    public ResponseEntity<ApiResponse<ProductResponseDto>> readProduct(@PathVariable Long id) {
         return getOkResponse(productService.getProductById(id));
     }
 
@@ -35,12 +35,12 @@ public class ProductController extends BaseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ProductResponseDto>> updateProduct(@RequestParam Long id, @RequestBody ProductDto productDto) {
+    public ResponseEntity<ApiResponse<ProductResponseDto>> updateProduct(@RequestBody ProductDto productDto, @PathVariable Long id) {
         return getOkResponse(productService.updateProduct(id, productDto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<ProductResponseDto>> deleteProduct(@RequestParam Long id) {
+    public ResponseEntity<ApiResponse<ProductResponseDto>> deleteProduct(@PathVariable Long id) {
         return getOkResponse(productService.deleteProduct(id));
     }
 }
