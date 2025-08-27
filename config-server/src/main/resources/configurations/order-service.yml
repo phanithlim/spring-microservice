@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/product-db
+    url: jdbc:postgresql://localhost:5432/order-db
     username: admin
     password: admin123
     driver-class-name: org.postgresql.Driver
@@ -13,4 +13,10 @@ spring:
     naming:
       physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
 server:
-  port: 8050
+  port: 8070
+
+application:
+  config:
+    customer-url: http://localhost:8090/api/v1/customers
+    product-url: http://localhost:8060/api/v1/products
+    payment-url: http://localhost:8070/api/v1/payments

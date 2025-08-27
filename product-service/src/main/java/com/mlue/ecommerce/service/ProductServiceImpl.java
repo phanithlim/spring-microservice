@@ -25,7 +25,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-
     @Override
     public ProductResponseDto createProduct(ProductDto product) {
         Category category = categoryRepository.findById(product.categoryId()).orElseThrow(() -> new NotFoundException("Category not found"));

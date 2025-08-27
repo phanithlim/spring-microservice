@@ -13,5 +13,3 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: alpha
     groups-order: desc
-server:
-  port: 8050
