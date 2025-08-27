@@ -11,6 +11,8 @@ import com.mlue.ecommerce.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -28,16 +30,30 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto getProductById(Long id) {
-        return null;
+        return productRepository.findById(id)
+                .map(ProductMapper.INSTANCE::toDto)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
     }
 
     @Override
     public ProductResponseDto updateProduct(Long id, ProductDto product) {
-        return null;
+        return productRepository.findById(id).map(prod -> {
+            Category category = categoryRepository.findById(product.categoryId()).orElseThrow(() -> new NotFoundException("Category not found"));
+            prod.setCategory(category);
+            return ProductMapper.INSTANCE.toDto(productRepository.save(prod));
+        }).orElseThrow(() -> new NotFoundException("Product not found"));
     }
 
     @Override
     public ProductResponseDto deleteProduct(Long id) {
-        return null;
+        return productRepository.findById(id).map(product -> {
+            productRepository.deleteById(id);
+            return ProductMapper.INSTANCE.toDto(product);
+        }).orElseThrow(() -> new NotFoundException("Product not found"));
+    }
+
+    @Override
+    public List<ProductResponseDto> getAllProducts() {
+        return ProductMapper.INSTANCE.toDto(productRepository.findAll());
     }
 }

@@ -8,13 +8,12 @@ import com.mlue.ecommerce.service.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1/products")
 @Tag(name = "Product", description = "Product management APIs")
 @RequiredArgsConstructor
 public class ProductController extends BaseController {
@@ -23,5 +22,25 @@ public class ProductController extends BaseController {
     @PostMapping
     public ResponseEntity<ApiResponse<ProductResponseDto>> createProduct(@RequestBody  ProductDto productDto) {
         return getOkResponse(productService.createProduct(productDto));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponseDto>> readProduct(@RequestParam Long id) {
+        return getOkResponse(productService.getProductById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<ProductResponseDto>>> readAllProducts() {
+        return getOkResponse(productService.getAllProducts());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponseDto>> updateProduct(@RequestParam Long id, @RequestBody ProductDto productDto) {
+        return getOkResponse(productService.updateProduct(id, productDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<ProductResponseDto>> deleteProduct(@RequestParam Long id) {
+        return getOkResponse(productService.deleteProduct(id));
     }
 }
