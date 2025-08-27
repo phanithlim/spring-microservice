@@ -1,6 +1,8 @@
 package com.mlue.ecommerce.service;
 
 import com.mlue.ecommerce.dto.ProductDto;
+import com.mlue.ecommerce.dto.ProductPurchaseDto;
+import com.mlue.ecommerce.dto.ProductPurchaseResponseDto;
 import com.mlue.ecommerce.dto.ProductResponseDto;
 
 import java.util.List;
@@ -11,4 +13,5 @@ public interface ProductService {
     ProductResponseDto updateProduct(Long id, ProductDto product);
     ProductResponseDto deleteProduct(Long id);
     List<ProductResponseDto> getAllProducts();
+    List<ProductPurchaseResponseDto> createProductPurchases(List<ProductPurchaseDto> productPurchases);
 }

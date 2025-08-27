@@ -14,7 +14,10 @@ public interface CategoryMapper {
     CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
     Category toEntity(CategoryDto categoryDto);
+
     CategoryResponseDto toDto(Category category);
+
     List<CategoryResponseDto> toDto(List<Category> categories);
+
     void updateCategory(@MappingTarget Category category, CategoryDto categoryDto);
 }
