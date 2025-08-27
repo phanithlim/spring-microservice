@@ -3,6 +3,8 @@ package com.mlue.ecommerce.controller;
 import com.mlue.ecommerce.core.ApiResponse;
 import com.mlue.ecommerce.core.BaseController;
 import com.mlue.ecommerce.dto.ProductDto;
+import com.mlue.ecommerce.dto.ProductPurchaseDto;
+import com.mlue.ecommerce.dto.ProductPurchaseResponseDto;
 import com.mlue.ecommerce.dto.ProductResponseDto;
 import com.mlue.ecommerce.service.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,5 +44,11 @@ public class ProductController extends BaseController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<ProductResponseDto>> deleteProduct(@PathVariable Long id) {
         return getOkResponse(productService.deleteProduct(id));
+    }
+
+    @PostMapping("/product-purchases")
+    public ResponseEntity<ApiResponse<List<ProductPurchaseResponseDto>>>  createProductPurchases(@RequestBody List<ProductPurchaseDto> productPurchases) {
+        return getOkResponse(productService.createProductPurchases(productPurchases));
+
     }
 }
