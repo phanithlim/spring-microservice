@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/order-db
+    url: jdbc:postgresql://localhost:5432/payment-db
     username: admin
     password: admin123
     driver-class-name: org.postgresql.Driver
@@ -18,7 +18,7 @@ spring:
     num-partition: 3
     num-replica-factor: 1
     consumer:
-      group-id: order-service-group
+      group-id: payment-service-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
@@ -34,16 +34,10 @@ spring:
     listener:
       concurrency: 3
     admin:
-      client-id: order-service-admin
+      client-id: payment-service-admin
 
-order-service:
-    order-topic: order_topic-value
+payment-service:
+  payment-topic: payment_topic-value
 
 server:
-  port: 8040
-
-application:
-  config:
-    customer-url: http://localhost:8090/api/v1/customers
-    product-url: http://localhost:8050/api/v1/products
-    payment-url: http://localhost:8070/api/v1/payments
+  port: 8070

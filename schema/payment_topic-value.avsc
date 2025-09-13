@@ -1,0 +1,41 @@
+{
+  "type": "record",
+  "name": "PaymentMessage",
+  "namespace": "com.mlue.ecommerce.payment",
+  "fields": [
+    {
+      "name": "order_reference",
+      "type": "string"
+    },
+    {
+      "name": "total_amount",
+      "type": "double"
+    },
+    {
+      "name": "payment_method",
+      "type": {
+        "type": "enum",
+        "name": "PaymentMethod",
+        "symbols": [
+          "CREDIT_CARD",
+          "PAYPAL",
+          "BANK_TRANSFER",
+          "CASH_ON_DELIVERY",
+          "BITCOIN"
+        ]
+      }
+    },
+    {
+      "name": "customer_first_name",
+      "type": "double"
+    },
+    {
+      "name": "customer_last_name",
+      "type": "double"
+    },
+    {
+      "name": "customer_email",
+      "type": "string"
+    }
+  ]
+}

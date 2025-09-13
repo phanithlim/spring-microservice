@@ -1,6 +1,7 @@
 package com.mlue.ecommerce.service;
 
 
+import com.mlue.ecommerce.client.PaymentClient;
 import com.mlue.ecommerce.core.ApiResponse;
 import com.mlue.ecommerce.dto.*;
 import com.mlue.ecommerce.event.OrderConfirmationEvent;
@@ -29,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderLineService orderLineService;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final PaymentClient paymentClient;
 
     @Override
     public Long createOrder(OrderDto orderDto) {
@@ -53,6 +55,20 @@ public class OrderServiceImpl implements OrderService {
                     )
             );
         }
+
+        PaymentDto paymentDto = new PaymentDto(
+                orderDto.reference(),
+                orderDto.totalAmount(),
+                orderDto.paymentMethod(),
+                order.getId(),
+                customer.getData()
+        );
+        ApiResponse<Long> paymentResponse = paymentClient.createPayment(paymentDto);
+        if (paymentResponse.getError() != 0) {
+            throw new CustomerException("Cannot create order:: " + paymentResponse.getMessage());
+        }
+        log.info("Payment processed with id: {}", paymentResponse.getData());
+
 
         OrderConfirmationDto orderConfirmationDto = new OrderConfirmationDto(
                 orderDto.reference(),
