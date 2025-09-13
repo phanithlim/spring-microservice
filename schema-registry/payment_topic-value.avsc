@@ -27,11 +27,11 @@
     },
     {
       "name": "customer_first_name",
-      "type": "double"
+      "type": "string"
     },
     {
       "name": "customer_last_name",
-      "type": "double"
+      "type": "string"
     },
     {
       "name": "customer_email",
