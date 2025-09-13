@@ -3,6 +3,7 @@ package com.mlue.ecommerce.service;
 
 import com.mlue.ecommerce.core.ApiResponse;
 import com.mlue.ecommerce.dto.*;
+import com.mlue.ecommerce.event.OrderConfirmationEvent;
 import com.mlue.ecommerce.expection.CustomerException;
 import com.mlue.ecommerce.client.CustomerClient;
 import com.mlue.ecommerce.client.ProductClient;
@@ -11,6 +12,7 @@ import com.mlue.ecommerce.mapper.OrderMapper;
 import com.mlue.ecommerce.model.Order;
 import com.mlue.ecommerce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class OrderServiceImpl implements OrderService {
     private final CustomerClient customerClient;
     private final ProductClient productClient;
@@ -34,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
             throw new CustomerException("Cannot create order:: " + customer.getMessage());
         }
 
+        log.info("Purchasing products: {}", orderDto.products());
         ApiResponse<List<ProductPurchaseResponseDto>> productResponse = productClient.purchaseProducts(orderDto.products());
         if (productResponse.getError() != 0) {
             throw new CustomerException("Cannot create order:: " + productResponse.getMessage());
@@ -57,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
                 customer.getData(),
                 productResponse.getData()
         );
-        applicationEventPublisher.publishEvent(orderConfirmationDto);
+        applicationEventPublisher.publishEvent(new OrderConfirmationEvent(orderConfirmationDto));
         return order.getId();
     }
 

@@ -13,8 +13,6 @@ import java.util.List;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record OrderDto(
-        Long id,
-
         String reference,
 
         @Positive(message = "Amount must be positive")

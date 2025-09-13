@@ -36,6 +36,6 @@ public class Order {
     private Instant createdAt;
 
     @LastModifiedDate
-    @Column(nullable = false, insertable = false)
+    @Column(nullable = false)
     private Instant lastUpdatedAt;
 }

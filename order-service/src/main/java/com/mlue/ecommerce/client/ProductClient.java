@@ -24,7 +24,7 @@ public class ProductClient {
         headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<List<ProductPurchaseDto>> requestEntity = new HttpEntity<>(requestBody, headers);
         ParameterizedTypeReference<ApiResponse<List<ProductPurchaseResponseDto>>> responseType = new ParameterizedTypeReference<>() {};
-        return restTemplate.exchange(productUrl, HttpMethod.POST, requestEntity, responseType).getBody();
+        return restTemplate.exchange(productUrl + "/product-purchases", HttpMethod.POST, requestEntity, responseType).getBody();
     }
 
 }
